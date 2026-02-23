@@ -27,4 +27,12 @@ public class Fruit {
     public void setType(FruitType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Fruit{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

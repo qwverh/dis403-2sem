@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 
 public class TestEmbeddedTomcat {
     public static void main(String[] args) {
+
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir("temp");
         Connector conn = new Connector();
@@ -26,35 +27,14 @@ public class TestEmbeddedTomcat {
         String docBase = new File(".").getAbsolutePath();
         Context tomcatContext = tomcat.addContext(contextPath, docBase);
 
-        /*
-            Создаем сервлет, лучше разместить этот код в отдельном файле
-         */
-
-        HttpServlet servlet = new HttpServlet() {
-            @Override
-            protected void service(HttpServletRequest req, HttpServletResponse resp)
-                    throws ServletException, IOException {
-                resp.setContentType("text/html; charset=utf-8");
-                PrintWriter writer = resp.getWriter();
-                writer.println("<html><head><meta charset='utf-8'/><title>Embeded Tomcat</title></head><body>");
-                writer.println("<h1>Мы встроили Tomcat в свое приложение!</h1>");
-
-                writer.println("<div>Метод: " + req.getMethod() + "</div>");
-                writer.println("<div>Ресурс: " + req.getPathInfo() + "</div>");
-                writer.println("</body></html>");
-            }
-        };
+        di.config.Context appContext = new di.config.Context();
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(appContext);
+        String servletName = "dispatcher";
+        tomcat.addServlet(contextPath, servletName, dispatcherServlet);
 
 
-        /*
-            Динамически подключаем севлет
-         */
-        String servletName = "dispatcherServlet"; // любое уникальное имя
-        tomcat.addServlet(contextPath, servletName, servlet);
-        //tomcat.addServlet(contextPath, servletName, new DispatcherServlet());
-        // Указываем имя ресурса и сервлет, который этот ресурс будет обрабатывать
-        // (по пути "/*" наш сервлет будет перехватывать все запросы)
         tomcatContext.addServletMappingDecoded("/*", servletName);
+
 
         try {
             tomcat.start();

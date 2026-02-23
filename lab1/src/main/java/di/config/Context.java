@@ -1,22 +1,26 @@
 package di.config;
 
+import di.annotation.Controller;
+import di.annotation.GetMapping;
+
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Context {
-
     private String scanPath = "di";
-
-    private Map<Class<?>, Object> components = new HashMap<>();
+    private Map<Class<?>, Object> beans = new HashMap<>();
+    private Map<String, Method> httpMap= new HashMap<>();
 
     public Context() {
         scanComponent();
-    }
+        initMap();
 
-    public Object getComponent(Class clazz) {
-        return components.get(clazz);
+    }
+    public Object getBean(Class clazz) {
+        return beans.get(clazz);
     }
 
     private void scanComponent() {
@@ -34,7 +38,7 @@ public class Context {
             // Перебираем классы компоненты
             objectNotFound:
             for (Class c : classes) {
-                if (components.get(c) != null) continue;
+                if (beans.get(c) != null) continue;
                 // берем первый попавшийся контруктор
                 Constructor constructor = c.getConstructors()[0];
                 // извлекаем типы аргументов конструктора
@@ -42,7 +46,7 @@ public class Context {
                 // Пытаемся найти готовые компоненты по аргументу
                 Object[] args = new Object[types.length];
                 for (int i = 0; i < types.length; ++i) {
-                    args[i] = components.get(types[i]);
+                    args[i] = beans.get(types[i]);
                     if (args[i] == null) {
                         continue objectNotFound;
                     }
@@ -50,7 +54,7 @@ public class Context {
 
                 try {
                     Object o = constructor.newInstance(args);
-                    components.put(c, o);
+                    beans.put(c, o);
                     countClasses--;
                     System.out.println(c + " добавлен");
                 } catch (Exception e) {
@@ -60,4 +64,21 @@ public class Context {
         }
     }
 
+    private void initMap() {
+        for (Object o : beans.values()) {
+            Class<?> clazz = o.getClass();
+            if (clazz.isAnnotationPresent(Controller.class)) {
+                for (Method method : clazz.getDeclaredMethods()) {
+                    if (method.isAnnotationPresent(GetMapping.class)) {
+                        String path = method.getAnnotation(GetMapping.class).value();
+                        httpMap.put(path, method);
+                    }
+                }
+            }
+        }
+    }
+
+    public Map<String, Method> getHttpMap() {
+        return httpMap;
+    }
 }

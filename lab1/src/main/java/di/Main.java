@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Context context = new Context();
 
-        Application application = (Application) context.getComponent(Application.class);
+        Application application = (Application) context.getBean(Application.class);
         application.run();
     }
 }

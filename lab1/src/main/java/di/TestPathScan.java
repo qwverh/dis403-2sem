@@ -13,6 +13,5 @@ public class TestPathScan {
         classes.forEach(System.out::println);
 */
         new Context();
-
     }
 }
