@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 public class HomeController {
@@ -14,7 +15,10 @@ public class HomeController {
     @GetMapping(value = "/home")
     public void home(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=utf-8");
-        response.getWriter().write("эта страница по ресурсу home");
+        PrintWriter writer = response.getWriter();
+        writer.write("<!DOCTYPE html>");
+        writer.write("<head></head><body><h1>страничка с ресурсом home</h1></body</html>");
+//        response.getWriter().write("эта страница по ресурсу home");
     }
 
 }
