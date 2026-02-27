@@ -28,7 +28,7 @@ public class Application {
         service.addFruit(storeII, new Fruit("Яблоко", FruitType.APPLE), 3000);
         service.addFruit(storeII, new Fruit("Апельсины", FruitType.ORANGE), 2000);
 
-        service.getAll().forEach(System.out::println);
+//        service.getAll().forEach(System.out::println);
     }
 
 }

@@ -65,8 +65,7 @@ public class Context {
     }
 
     private void initMap() {
-        for (Object o : beans.values()) {
-            Class<?> clazz = o.getClass();
+        for (Class<?> clazz : beans.keySet()) {
             if (clazz.isAnnotationPresent(Controller.class)) {
                 for (Method method : clazz.getDeclaredMethods()) {
                     if (method.isAnnotationPresent(GetMapping.class)) {
