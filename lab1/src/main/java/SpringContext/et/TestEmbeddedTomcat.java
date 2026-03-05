@@ -23,7 +23,7 @@ public class TestEmbeddedTomcat {
         Context tomcatContext = tomcat.addContext(contextPath, docBase);
 
         AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext("" +
-                "SpringContextz");
+                "SpringContext");
         DispatcherServlet dispatcherServlet = new DispatcherServlet(appContext);
         String servletName = "dispatcher";
         tomcat.addServlet(contextPath, servletName, dispatcherServlet);
