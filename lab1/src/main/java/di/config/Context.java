@@ -71,10 +71,12 @@ public class Context {
                     if (method.isAnnotationPresent(GetMapping.class)) {
                         String path = method.getAnnotation(GetMapping.class).value();
                         httpMap.put(path, method);
+
                     }
                 }
             }
         }
+        System.out.println("мапа проинициализирована");
     }
 
     public Map<String, Method> getHttpMap() {
