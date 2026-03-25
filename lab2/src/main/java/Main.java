@@ -14,14 +14,20 @@ public class Main {
         EntityManagerFactory emf = new EntityManagerFactory();
         EntityManager em = emf.getEntityManager();
 
+
         Country country = new Country();
-        country.setName("France");
+        country.setName("Canada");
         em.save(country);
 
         City city = new City();
-        city.setName("Париж");
         city.setCountry(country);
         em.save(city);
+
+
+
+
+
+
 
 
 

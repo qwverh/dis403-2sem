@@ -11,6 +11,9 @@
     <modules>
         <module>lab1</module>
         <module>lab2</module>
+        <module>lab3-jpa</module>
+        <module>lab4-spring-jpa</module>
+        <module>lab5-spring-security</module>
     </modules>
 <dependencies>
 
