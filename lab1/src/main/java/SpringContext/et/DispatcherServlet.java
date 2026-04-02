@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -38,7 +37,6 @@ public class DispatcherServlet extends HttpServlet {
         } catch (InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 }
