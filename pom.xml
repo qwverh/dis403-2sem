@@ -24,6 +24,8 @@
         <module>lab06-spring-security-jwt</module>
         <module>lab7-docker-http-client</module>
         <module>lab8-nats</module>
+        <module>lab9-inner-service</module>
+        <module>lab8-nats-publisher</module>
     </modules>
 <dependencies>
 

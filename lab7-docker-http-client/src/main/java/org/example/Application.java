@@ -1,7 +1,8 @@
-package org.example.docker;
+package org.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 import java.io.IOException;
 
@@ -9,5 +10,7 @@ import java.io.IOException;
 public class Application {
     public static void main(String[] args) throws IOException {
         SpringApplication.run(Application.class, args);
+
+        System.out.println();
     }
 }
